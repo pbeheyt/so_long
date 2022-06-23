@@ -6,15 +6,15 @@
 #    By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 15:08:45 by pbeheyt           #+#    #+#              #
-#    Updated: 2022/06/22 08:10:05 by pbeheyt          ###   ########.fr        #
+#    Updated: 2022/06/23 10:30:35 by pbeheyt          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= so_long
 
 SRC		= main.c \
-		# check.c \
-		# parsing.c \
+		check.c \
+		parsing.c \
 		# operations.c \
 		# operations2.c \
 		# sort_short_list.c \
