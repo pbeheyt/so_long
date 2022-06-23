@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/23 15:20:08 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/23 20:13:11 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ void	check_content(char **map, t_data *data)
 			}
 		}
 	}
-	if (!exit_count || !player_count)
+	if (exit_count != 1 || player_count != 1)
 		data->error = 1;
 }
