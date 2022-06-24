@@ -6,11 +6,12 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/24 07:46:15 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/24 10:27:00 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <mlx.h>
 
 int	main(void)
 {
@@ -24,13 +25,17 @@ int	main(void)
 	data.error = 0;
 	data.map->tab = parse_map_into_table(&data);
 	check_map(&data);
-	
-	data.image->mlx = mlx_init;
+
+
+
+	data.image->mlx = mlx_init();
 	data.image->win = mlx_new_window(data.image->mlx, 
-		(data.map->height * 64), (data.map->width * 64), "SO_LONG");
-	
+		data.map->width * 64, data.map->height * 64, "SO_LONG");
 	load_map(&data);
-	
+	mlx_loop(data.image->mlx);	
+
+
+
 	if (!data.error)
 		free_tab(data.map->tab);
 	return (0);
