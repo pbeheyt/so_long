@@ -6,7 +6,7 @@
 #    By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 15:08:45 by pbeheyt           #+#    #+#              #
-#    Updated: 2022/06/24 06:13:05 by pbeheyt          ###   ########.fr        #
+#    Updated: 2022/06/24 07:44:29 by pbeheyt          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,16 +32,16 @@ CFLAGS 	= -Wall -Wextra -Werror -g
 
 OBJS 	= ${DIR:.c=.o}
 
-LD_FLAG	= -L libft
+LD_FLAG	= -L libft -L mlx
 
-MLX_FLAG= -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz
+MLX_FLAG= -lm -lmlx -lXext -lX11
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C libft
 	make -C mlx
-	$(CC) $(CFLAGS) $(LD_FLAG) $(MLX_FLAG) $(OBJS) -o $(NAME) -lft 
+	$(CC) $(CFLAGS) $(LD_FLAG) $(OBJS) -o $(NAME) -lft $(MLX_FLAG)
 
 
 .c.o:

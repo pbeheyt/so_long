@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/24 05:41:41 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/24 07:41:43 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,13 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <limits.h>
-# include <mlx.h>
+# include "mlx.h"
 # include "libft.h"
 
 typedef struct s_map
 {
 	char	*name;
 	char 	**tab;
-	int		x;
-	int		y;
 	int		height;
 	int		width;
 	int		collectible_count;
@@ -36,6 +34,8 @@ typedef struct s_image
 {
 	void	*mlx;
 	void	*win;
+	int		x;
+	int		y;
 	void	*empty;
 	void	*wall;
 	void	*collectible;
@@ -64,5 +64,11 @@ void	check_walls(t_data *data);
 /*check2.c*/
 int		is_content(char c, int *exit_count, int *player_count, t_data *data);
 void	check_content(t_data *data);
+
+/*image.c*/
+void	init_xpm(t_map *map, t_image *image);
+void	display_image(t_map *map, t_image *image);
+void	load_map(t_data *data);
+
 
 #endif
