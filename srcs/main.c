@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/24 10:27:00 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/24 10:56:08 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(void)
 	data.image->mlx = mlx_init();
 	data.image->win = mlx_new_window(data.image->mlx, 
 		data.map->width * 64, data.map->height * 64, "SO_LONG");
-	load_map(&data);
+	load_map(data.map, data.image);
 	mlx_loop(data.image->mlx);	
 
 

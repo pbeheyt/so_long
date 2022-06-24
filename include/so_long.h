@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/24 07:41:43 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/24 10:49:43 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_image
 {
 	void	*mlx;
 	void	*win;
+	int		height;
+	int		width;
 	int		x;
 	int		y;
 	void	*empty;
@@ -66,9 +68,9 @@ int		is_content(char c, int *exit_count, int *player_count, t_data *data);
 void	check_content(t_data *data);
 
 /*image.c*/
-void	init_xpm(t_map *map, t_image *image);
+void	init_xpm(t_image *image);
 void	display_image(t_map *map, t_image *image);
-void	load_map(t_data *data);
+void	load_map(t_map *map, t_image *image);
 
 
 #endif
