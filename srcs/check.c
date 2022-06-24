@@ -6,27 +6,27 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/23 15:18:22 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/24 05:40:57 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	check_map(char **map, t_data *data)
+int	check_map(t_data *data)
 {
-	check_map_dimensions(map, data);
-	check_walls(map, data);
-	check_content(map, data);
+	check_map_dimensions(data);
+	check_walls(data);
+	check_content(data);
 	if (data->error)
 	{
-		free_tab(map);
+		free_tab(data->map->tab);
 		return (0);
 	}
 	return (1);
 }
 
 
-void	check_map_dimensions(char **map, t_data *data)
+void	check_map_dimensions(t_data *data)
 {
 	int	first;
 	int	w;
@@ -37,18 +37,18 @@ void	check_map_dimensions(char **map, t_data *data)
 	first = 0;
 	w = 0;
 	h = -1;
-	while (map[++h])
+	while (data->map->tab[++h])
 	{
-		w = ft_strlen(map[h]);
-		if (first && w != data->map_width)
+		w = ft_strlen(data->map->tab[h]);
+		if (first && w != data->map->width)
 		{
 			data->error = 1;
 			return ;
 		}
 		first = 1;
-		data->map_width = w;
+		data->map->width = w;
 	}
-	data->map_height = h;
+	data->map->height = h;
 }
 
 int	check_horizontal_wall(char *row)
@@ -64,7 +64,7 @@ int	check_horizontal_wall(char *row)
 	return (1);
 }
 
-void	check_walls(char **map, t_data *data)
+void	check_walls(t_data *data)
 {
 	int	h;
 	int	w;
@@ -72,14 +72,14 @@ void	check_walls(char **map, t_data *data)
 
 	if (data->error)
 		return ;
-	h = data->map_height;
-	w = data->map_width;
+	h = data->map->height;
+	w = data->map->width;
 	i = 0;
 	while (++i < (h - 1))
 	{
-		if (map[i][0] != '1' || map[i][w - 1] != '1')
+		if (data->map->tab[i][0] != '1' || data->map->tab[i][w - 1] != '1')
 			data->error = 1;
 	}
-	if (!check_horizontal_wall(map[0]) || !check_horizontal_wall(map[h - 1]))
+	if (!check_horizontal_wall(data->map->tab[0]) || !check_horizontal_wall(data->map->tab[h - 1]))
 		data->error = 1;
 }

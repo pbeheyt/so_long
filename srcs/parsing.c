@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/23 15:10:34 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/24 05:37:16 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*put_map_into_str(t_data *data)
 	char	*tmp;
 	int		fd;
 
-	fd = open(data->map_name, O_RDONLY);
+	fd = open(data->map->name, O_RDONLY);
 	str = malloc(sizeof(char));
 	if (!str)
 		return (0);

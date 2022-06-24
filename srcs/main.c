@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/23 15:07:18 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/24 06:12:15 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,23 @@
 
 int	main(void)
 {
-	char	**map;
 	t_data	data;
-
-	data.map_name = "map.txt";
+	
+	data.image = malloc(sizeof(t_image));
+	data.map = malloc(sizeof(t_map));
+	data.map->name = "map.txt";
 	data.error = 0;
-	map = parse_map_into_table(&data);
-	check_map(map, &data);
+	data.map->tab = parse_map_into_table(&data);
+	check_map(&data);
+	
+	printf("error : %d\n", data.error);
+	printf("height : %d\n", data.map->height);
+	printf("width : %d\n", data.map->width);
+	printf("collectible : %d\n", data.map->collectible_count);
+	
+	
 	if (!data.error)
-		free_tab(map);
+		free_tab(data.map->tab);
 	return (0);
 }
 /*
