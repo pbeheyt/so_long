@@ -6,12 +6,11 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/24 10:56:08 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 00:59:45 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <mlx.h>
 
 int	main(void)
 {
@@ -30,7 +29,7 @@ int	main(void)
 
 	data.image->mlx = mlx_init();
 	data.image->win = mlx_new_window(data.image->mlx, 
-		data.map->width * 64, data.map->height * 64, "SO_LONG");
+		data.map->size.width * 64, data.map->size.height * 64, "SO_LONG");
 	load_map(data.map, data.image);
 	mlx_loop(data.image->mlx);	
 

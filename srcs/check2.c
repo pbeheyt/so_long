@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/24 05:40:07 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 01:00:39 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	check_content(t_data *data)
 	exit_count = 0;
 	player_count = 0;
 	i = 0;
-	while (++i < (data->map->height - 1))
+	while (++i < (data->map->size.height - 1))
 	{
 		j = 0;
-		while (++j < (data->map->width - 1))
+		while (++j < (data->map->size.width - 1))
 		{
 			if (!is_content(data->map->tab[i][j], &exit_count, &player_count, data))
 			{

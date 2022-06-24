@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/24 10:49:43 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 00:57:28 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,17 @@
 # include "mlx.h"
 # include "libft.h"
 
+typedef struct s_size
+{
+	int		height;
+	int		width;
+}			t_size;
+
 typedef struct s_map
 {
 	char	*name;
 	char 	**tab;
-	int		height;
+	t_size	size;
 	int		width;
 	int		collectible_count;
 	int		move_count;
@@ -34,8 +40,7 @@ typedef struct s_image
 {
 	void	*mlx;
 	void	*win;
-	int		height;
-	int		width;
+	t_size	size;
 	int		x;
 	int		y;
 	void	*empty;

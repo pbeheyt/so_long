@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/24 05:40:57 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 01:02:10 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ void	check_map_dimensions(t_data *data)
 	while (data->map->tab[++h])
 	{
 		w = ft_strlen(data->map->tab[h]);
-		if (first && w != data->map->width)
+		if (first && w != data->map->size.width)
 		{
 			data->error = 1;
 			return ;
 		}
 		first = 1;
-		data->map->width = w;
+		data->map->size.width = w;
 	}
-	data->map->height = h;
+	data->map->size.height = h;
 }
 
 int	check_horizontal_wall(char *row)
@@ -72,14 +72,15 @@ void	check_walls(t_data *data)
 
 	if (data->error)
 		return ;
-	h = data->map->height;
-	w = data->map->width;
+	h = data->map->size.height;
+	w = data->map->size.width;
 	i = 0;
 	while (++i < (h - 1))
 	{
 		if (data->map->tab[i][0] != '1' || data->map->tab[i][w - 1] != '1')
 			data->error = 1;
 	}
-	if (!check_horizontal_wall(data->map->tab[0]) || !check_horizontal_wall(data->map->tab[h - 1]))
+	if (!check_horizontal_wall(data->map->tab[0]) ||
+		!check_horizontal_wall(data->map->tab[h - 1]))
 		data->error = 1;
 }
