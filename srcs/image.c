@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 03:32:47 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 05:28:50 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_sprite	*init_sprite(t_data *data, char *path, char c)
 	}
 	sprite->path = path;
 	sprite->c = c;
+	sprite->next = NULL;
 	sprite->content = mlx_xpm_file_to_image(data->image->mlx, sprite->path, 
 		&sprite->size.width, &sprite->size.height);
 	return (sprite);
@@ -32,27 +33,32 @@ t_sprite	*init_sprite(t_data *data, char *path, char c)
 void	load_sprites(t_data *data)
 {
 	t_image		*image;
-
+	
 	image = data->image;
+	image->list = NULL;
 	image->empty = init_sprite(data, "img/empty.xpm", '0');
+	list_add_back(&image->list, image->empty);
 	image->wall = init_sprite(data, "img/bush.xpm", '1');
+	list_add_back(&image->list, image->wall);
 	image->collectible = init_sprite(data, "img/cheese.xpm", 'C');
+	list_add_back(&image->list, image->collectible);
 	image->exit = init_sprite(data, "img/oball.xpm", 'E');
+	list_add_back(&image->list, image->exit);
 	image->player = init_sprite(data, "img/rrat.xpm", 'P');
+	list_add_back(&image->list, image->player);
 }
 
 void	*find_content(t_image *image, char c)
 {
-	if (c == image->empty->c)
-		return (image->empty->content);
-	if (c == image->wall->c)
-		return (image->wall->content);
-	if (c == image->collectible->c)
-		return (image->collectible->content);
-	if (c == image->exit->c)
-		return (image->exit->content);
-	if (c == image->player->c)
-		return (image->player->content);
+	t_sprite	*tmp;
+	
+	tmp = image->list;
+	while (tmp)
+	{
+		if (tmp->c == c)
+			return (tmp->content);
+		tmp = tmp->next;
+	}
 	return (NULL);
 }
 

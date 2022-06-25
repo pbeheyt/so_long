@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 03:33:00 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 05:30:15 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,21 @@ typedef struct s_map
 	int		move_count;
 }			t_map;
 
-typedef struct t_sprite
+typedef struct s_sprite
 {
 	void	*content;
 	char	*path;
 	char	c;
+	struct s_sprite	*next;
 	t_size	size;
+
 }			t_sprite;
 
 typedef struct s_image
 {
 	void		*mlx;
 	void		*win;
+	t_sprite	*list;
 	t_sprite	*empty;
 	t_sprite	*wall;
 	t_sprite	*collectible;
@@ -83,5 +86,8 @@ void		load_sprites(t_data *data);
 void		*find_content(t_image *image, char c);
 void		load_map(t_data *data);
 
+/*image_utilis.c*/
+void		list_add_back(t_sprite **lst, t_sprite *new);
+t_sprite	*get_list_last(t_sprite *lst);
 
 #endif
