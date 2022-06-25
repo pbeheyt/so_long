@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 07:14:18 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 07:48:18 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,17 @@ void move_player(t_data *data, t_pos delta)
 
 	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->wall->c)
 		return ;
-	else if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->collectible->c)
+	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->collectible->c)
 		map->collectible_count--;
-	else if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->exit->c && !map->collectible_count)
-		return (free_tab(map->tab));
-	else
+	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->exit->c)
 	{
-		map->tab[player_pos.x][player_pos.y] = image->empty->c;
-		map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = image->player->c;
-		map->move_count++;
-		load_map(data);
+		if (map->collectible_count == 0)
+			return (free_tab(map->tab));
+		else
+			return ;
 	}
+	map->tab[player_pos.x][player_pos.y] = image->empty->c;
+	map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = image->player->c;
+	map->move_count++;
+	load_map(data);
 }

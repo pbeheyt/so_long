@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 06:51:00 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 07:45:39 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(void)
 	data.image->win = mlx_new_window(data.image->mlx, 
 		data.map->size.width * 64, data.map->size.height * 64, "SO_LONG");
 	load_map(&data);
-	
+	// move_player_dir(&data, LEFT);
 	
 	mlx_key_hook(data.image->win, keyboard_input, &data);
 	// mlx_hook(data.image->win, 17, 0, NULL, &data);
