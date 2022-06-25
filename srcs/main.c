@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 03:19:58 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 06:51:00 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,18 @@ int	main(void)
 		return (0);
 	data.map->name = "map.txt";
 	data.error = 0;
+	data.map->move_count = 0;
 	data.map->tab = parse_map_into_table(&data);
 	check_map(&data);
-
-
 
 	data.image->mlx = mlx_init();
 	data.image->win = mlx_new_window(data.image->mlx, 
 		data.map->size.width * 64, data.map->size.height * 64, "SO_LONG");
 	load_map(&data);
+	
+	
+	mlx_key_hook(data.image->win, keyboard_input, &data);
+	// mlx_hook(data.image->win, 17, 0, NULL, &data);
 	mlx_loop(data.image->mlx);	
 
 

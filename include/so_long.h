@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 05:30:15 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 07:13:58 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,19 @@ typedef struct s_size
 	int		width;
 }			t_size;
 
+typedef struct s_pos
+{
+	int		x;
+	int		y;
+}			t_pos;
+
 typedef struct s_map
 {
 	char	*name;
 	char 	**tab;
 	t_size	size;
+	t_pos	player_pos;
+	t_pos	delta;
 	int		width;
 	int		collectible_count;
 	int		move_count;
@@ -65,6 +73,14 @@ typedef struct s_data
 	t_image	*image;
 }			t_data;
 
+enum e_dir
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+};
+
 /*parsing.c*/
 char	*put_map_into_str(t_data *data);
 char	**parse_map_into_table(t_data *data);
@@ -89,5 +105,11 @@ void		load_map(t_data *data);
 /*image_utilis.c*/
 void		list_add_back(t_sprite **lst, t_sprite *new);
 t_sprite	*get_list_last(t_sprite *lst);
+
+/*game.c*/
+int		keyboard_input(int keycode, t_data *data);
+t_pos	find_player_position(t_data *data);
+void move_player_dir(t_data *data, int dir);
+void move_player(t_data *data, t_pos delta);
 
 #endif
