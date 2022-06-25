@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 00:57:28 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 03:33:00 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,32 @@ typedef struct s_map
 	int		move_count;
 }			t_map;
 
+typedef struct t_sprite
+{
+	void	*content;
+	char	*path;
+	char	c;
+	t_size	size;
+}			t_sprite;
+
 typedef struct s_image
 {
-	void	*mlx;
-	void	*win;
-	t_size	size;
-	int		x;
-	int		y;
-	void	*empty;
-	void	*wall;
-	void	*collectible;
-	void	*exit;
-	void	*player;
-}			t_image;
+	void		*mlx;
+	void		*win;
+	t_sprite	*empty;
+	t_sprite	*wall;
+	t_sprite	*collectible;
+	t_sprite	*exit;
+	t_sprite	*player;
+}				t_image;
 
 typedef struct s_data
 {
 	int		error;
 	t_map	*map;
 	t_image	*image;
-
 }			t_data;
+
 /*parsing.c*/
 char	*put_map_into_str(t_data *data);
 char	**parse_map_into_table(t_data *data);
@@ -73,9 +78,10 @@ int		is_content(char c, int *exit_count, int *player_count, t_data *data);
 void	check_content(t_data *data);
 
 /*image.c*/
-void	init_xpm(t_image *image);
-void	display_image(t_map *map, t_image *image);
-void	load_map(t_map *map, t_image *image);
+t_sprite	*init_sprite(t_data *data, char *path, char c);
+void		load_sprites(t_data *data);
+void		*find_content(t_image *image, char c);
+void		load_map(t_data *data);
 
 
 #endif
