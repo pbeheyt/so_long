@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 01:02:10 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 09:36:47 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	check_map(t_data *data)
 	if (data->error)
 	{
 		free_tab(data->map->tab);
+		free_struct(data);
 		return (0);
 	}
 	return (1);

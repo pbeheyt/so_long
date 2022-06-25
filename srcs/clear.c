@@ -1,55 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 08:53:25 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 09:57:11 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	*put_map_into_str(t_data *data)
-{
-	char	*row;
-	char	*str;
-	char	*tmp;
-	int		fd;
+int	clear_all(t_data *data)
+{	
+	free_tab(data->map->tab);
+	clear_mlx(data);
+	free_struct(data);
+	exit (0);
+}
 
-	fd = open(data->map->name, O_RDONLY);
-	str = malloc(sizeof(char));
-	if (!str)
-		return (0);
-	str[0] = 0;
-	while (1)
+void	free_struct(t_data *data)
+{	
+	free(data->image);
+	free(data->map);
+}
+
+void	free_tab(char **tab)
+{	
+	int	i;
+
+	if (!tab)
+		return ;
+	i = -1;
+	while (tab[++i])
+		free(tab[i]);
+	free (tab);
+}
+
+void	clear_mlx(t_data *data)
+{
+	t_image		*image;
+	t_sprite	*tmp;
+	
+	image = data->image;
+	tmp = image->list;
+	while (tmp)
 	{
-		row = get_next_line(fd);
-		if (!row)
-			break ;
-		tmp = ft_strjoin(str, row);
-		free (str);
-		str = tmp;
-		free(row);
+		mlx_destroy_image(image->mlx, tmp->content);
+		tmp = tmp->next;
 	}
-	close(fd);
-	return (str);
+	mlx_destroy_window(image->mlx, image->win);
+	mlx_destroy_display(image->mlx);
+	free(image->mlx);
 }
-
-char	**parse_map_into_table(t_data *data)
-{
-	char	*str;
-	char	**map;
-
-	str = put_map_into_str(data);
-	if (!str)
-		return (0);
-	map = ft_split(str, '\n');
-	if (!map)
-		return (0);
-	free(str);
-	return (map);
-}
-

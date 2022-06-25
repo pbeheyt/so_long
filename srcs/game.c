@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 07:48:18 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 09:46:10 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	keyboard_input(int keycode, t_data *data)
 {
 	if (keycode == 65307)
-		free_tab(data->map->tab);
+		clear_all(data);
 	else if (keycode == 'W' || keycode == 'w')
 		move_player_dir(data, UP);
 	else if (keycode == 'S' || keycode == 's')
@@ -59,27 +59,18 @@ t_pos	find_player_position(t_data *data)
 void move_player_dir(t_data *data, int dir)
 {
 	t_pos	delta;
-	
+
+	delta.x = 0;
+	delta.y = 0;
+
 	if (dir == UP)
-	{
 		delta.x = -1;
-		delta.y = 0;
-	}
 	if (dir == DOWN)
-	{
 		delta.x = 1;
-		delta.y = 0;
-	}
 	if (dir == LEFT)
-	{
-		delta.x = 0;
 		delta.y = -1;
-	}
 	if (dir == RIGHT)
-	{
-		delta.x = 0;
 		delta.y = 1;
-	}
 	move_player(data, delta);
 }
 
@@ -100,7 +91,7 @@ void move_player(t_data *data, t_pos delta)
 	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->exit->c)
 	{
 		if (map->collectible_count == 0)
-			return (free_tab(map->tab));
+			clear_all(data);
 		else
 			return ;
 	}
