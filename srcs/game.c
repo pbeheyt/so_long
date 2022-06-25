@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 09:46:10 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 14:15:49 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,25 @@ int	keyboard_input(int keycode, t_data *data)
 	if (keycode == 65307)
 		clear_all(data);
 	else if (keycode == 'W' || keycode == 'w')
-		move_player_dir(data, UP);
+		move_player_dir(data->map, data->image, data, UP);
 	else if (keycode == 'S' || keycode == 's')
-		move_player_dir(data, DOWN);
+		move_player_dir(data->map, data->image, data, DOWN);
 	else if (keycode == 'A' || keycode == 'a')
-		move_player_dir(data, LEFT);
+		move_player_dir(data->map, data->image, data, LEFT);
 	else if (keycode == 'D' || keycode == 'd')
-		move_player_dir(data, RIGHT);
+		move_player_dir(data->map, data->image, data, RIGHT);
 	return (0);
 }
 
-t_pos	find_player_position(t_data *data)
+t_pos	find_player_position(t_map *map, t_image *image)
 {	
 	t_sprite	*sprite;
-	t_map		*map;
 	t_pos		player_pos;
 	int			x;
 	int			y;
-
-	sprite = data->image->player;
-	map = data->map;
+	
+	(void)image;
+	sprite = image->player;
 	player_pos.x = 0;
 	player_pos.y = 0;
 	x = -1;
@@ -56,7 +55,7 @@ t_pos	find_player_position(t_data *data)
 	return (player_pos);
 }
 
-void move_player_dir(t_data *data, int dir)
+void move_player_dir(t_map *map, t_image *image, t_data *data, int dir)
 {
 	t_pos	delta;
 
@@ -71,19 +70,14 @@ void move_player_dir(t_data *data, int dir)
 		delta.y = -1;
 	if (dir == RIGHT)
 		delta.y = 1;
-	move_player(data, delta);
+	move_player(map, image, data, delta);
 }
 
-void move_player(t_data *data, t_pos delta)
+void move_player(t_map *map, t_image *image, t_data *data, t_pos delta)
 {
-	t_image	*image;
-	t_map	*map;
 	t_pos	player_pos;
 
-	image = data->image;
-	map = data->map;
-	player_pos = find_player_position(data);
-
+	player_pos = find_player_position(map, image);
 	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->wall->c)
 		return ;
 	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->collectible->c)
@@ -98,5 +92,5 @@ void move_player(t_data *data, t_pos delta)
 	map->tab[player_pos.x][player_pos.y] = image->empty->c;
 	map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = image->player->c;
 	map->move_count++;
-	load_map(data);
+	load_map(map, image, data);
 }

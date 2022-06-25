@@ -6,46 +6,44 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 05:28:50 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 15:13:18 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_sprite	*init_sprite(t_data *data, char *path, char c)
+t_sprite	*init_sprite(t_image *image, t_data *data, char *path, char c)
 {
 	t_sprite	*sprite;
 	
 	sprite = malloc(sizeof(t_sprite));
 	if (!sprite)
 	{
-		data->error = 1;
-		return (0);		
+		ft_putstr_fd("Error\nMemory allocation failed\n", 2);
+		clear_all(data);
 	}
 	sprite->path = path;
 	sprite->c = c;
 	sprite->next = NULL;
-	sprite->content = mlx_xpm_file_to_image(data->image->mlx, sprite->path, 
+	sprite->content = mlx_xpm_file_to_image(image->mlx, sprite->path, 
 		&sprite->size.width, &sprite->size.height);
 	return (sprite);
 }
 
-void	load_sprites(t_data *data)
+void	load_sprites(t_image *image, t_data *data)
 {
-	t_image		*image;
-	
-	image = data->image;
 	image->list = NULL;
-	image->empty = init_sprite(data, "img/empty.xpm", '0');
+	image->empty = init_sprite(image, data, "img/empty.xpm", '0');
 	list_add_back(&image->list, image->empty);
-	image->wall = init_sprite(data, "img/bush.xpm", '1');
+	image->wall = init_sprite(image, data, "img/bush.xpm", '1');
 	list_add_back(&image->list, image->wall);
-	image->collectible = init_sprite(data, "img/cheese.xpm", 'C');
+	image->collectible = init_sprite(image, data, "img/cheese.xpm", 'C');
 	list_add_back(&image->list, image->collectible);
-	image->exit = init_sprite(data, "img/oball.xpm", 'E');
+	image->exit = init_sprite(image, data, "img/oball.xpm", 'E');
 	list_add_back(&image->list, image->exit);
-	image->player = init_sprite(data, "img/rrat.xpm", 'P');
+	image->player = init_sprite(image, data, "img/rrat.xpm", 'P');
 	list_add_back(&image->list, image->player);
+	image->sprites_loaded = 1;
 }
 
 void	*find_content(t_image *image, char c)
@@ -62,17 +60,16 @@ void	*find_content(t_image *image, char c)
 	return (NULL);
 }
 
-void	load_map(t_data *data)
+void	load_map(t_map *map, t_image *image, t_data *data)
 {	
-	t_image	*image;
-	t_map	*map;
 	int		x;
 	int		y;
 	int		c;
-
-	load_sprites(data);
-	image = data->image;
-	map = data->map;
+	
+	if (!image->sprites_loaded)
+		load_sprites(image, data);
+	ft_putnbr_fd(map->move_count, 1);
+	ft_putchar_fd('\n', 1);
 	x = -1;
 	while (++x < map->size.height)
 	{

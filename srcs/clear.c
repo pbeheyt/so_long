@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 09:57:11 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 14:47:14 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,13 @@
 int	clear_all(t_data *data)
 {	
 	free_tab(data->map->tab);
-	clear_mlx(data);
-	free_struct(data);
-	exit (0);
+	clear_mlx(data->image);
+	free(data->map);
+	free(data->image);
+	exit (1);
 }
 
-void	free_struct(t_data *data)
-{	
-	free(data->image);
-	free(data->map);
-}
+
 
 void	free_tab(char **tab)
 {	
@@ -38,17 +35,18 @@ void	free_tab(char **tab)
 	free (tab);
 }
 
-void	clear_mlx(t_data *data)
+void	clear_mlx(t_image *image)
 {
-	t_image		*image;
 	t_sprite	*tmp;
+	t_sprite	*sprite;
 	
-	image = data->image;
 	tmp = image->list;
 	while (tmp)
 	{
+		sprite = tmp;
 		mlx_destroy_image(image->mlx, tmp->content);
 		tmp = tmp->next;
+		free (sprite);
 	}
 	mlx_destroy_window(image->mlx, image->win);
 	mlx_destroy_display(image->mlx);

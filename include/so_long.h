@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 09:44:26 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 14:13:20 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_pos
 
 typedef struct s_map
 {
+	int				error;
 	char			*name;
 	char 			**tab;
 	t_size			size;
@@ -63,11 +64,11 @@ typedef struct s_image
 	t_sprite		*collectible;
 	t_sprite		*exit;
 	t_sprite		*player;
+	int				sprites_loaded;
 }					t_image;
 
 typedef struct s_data
 {
-	int				error;
 	t_map			*map;
 	t_image			*image;
 }					t_data;
@@ -81,25 +82,26 @@ enum e_dir
 };
 
 /*parsing.c*/
-char		*put_map_into_str(t_data *data);
-char		**parse_map_into_table(t_data *data);
+char		*put_map_into_str(t_map *map);
+char		**parse_map_into_table(t_map *map);
 
 /*check.c*/
-int			check_map(t_data *data);
-void		check_map_dimensions(t_data *data);
+int			check_map(t_map *map);
+void		check_map_file(t_map *map);
+void		check_map_dimensions(t_map *map);
 int			check_horizontal_wall(char *row);
-void		check_walls(t_data *data);
+void		check_walls(t_map *map);
 
 /*check2.c*/
 int			is_content(char c, int *exit_count, int *player_count,
-				t_data *data);
-void		check_content(t_data *data);
+				t_map *map);
+void		check_content(t_map *map);
 
 /*image.c*/
-t_sprite	*init_sprite(t_data *data, char *path, char c);
-void		load_sprites(t_data *data);
+t_sprite	*init_sprite(t_image *image, t_data *data, char *path, char c);
+void		load_sprites(t_image *image, t_data *data);
 void		*find_content(t_image *image, char c);
-void		load_map(t_data *data);
+void		load_map(t_map *map, t_image *image, t_data *data);
 
 /*image_utilis.c*/
 void		list_add_back(t_sprite **lst, t_sprite *new);
@@ -107,14 +109,13 @@ t_sprite	*get_list_last(t_sprite *lst);
 
 /*game.c*/
 int			keyboard_input(int keycode, t_data *data);
-t_pos		find_player_position(t_data *data);
-void 		move_player_dir(t_data *data, int dir);
-void 		move_player(t_data *data, t_pos delta);
+t_pos		find_player_position(t_map *map, t_image *image);
+void 		move_player_dir(t_map *map, t_image *image, t_data *data, int dir);
+void 		move_player(t_map *map, t_image *image, t_data *data, t_pos delta);
 
 /*clear.c*/
 int			clear_all(t_data *data);
-void		free_struct(t_data *data);
 void		free_tab(char **tab);
-void		clear_mlx(t_data *data);
+void		clear_mlx(t_image *image);
 
 #endif
