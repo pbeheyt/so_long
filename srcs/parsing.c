@@ -6,13 +6,13 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 15:53:25 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 15:58:57 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	*put_map_into_str(t_map *map)
+char	*put_map_into_str(int fd)
 {
 	char	*row;
 	char	*str;
@@ -51,7 +51,7 @@ char	**parse_map_into_table(t_map *map)
 		ft_putstr_fd("Error\nInvalid map file\n", 2);
 		return (NULL);
 	}
-	str = put_map_into_str(map);
+	str = put_map_into_str(fd);
 	if (!str)
 		return (NULL);
 	tab = ft_split(str, '\n');

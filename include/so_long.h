@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 15:52:08 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 15:58:22 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ enum e_dir
 };
 
 /*parsing.c*/
-char		*put_map_into_str(t_map *map);
+char		*put_map_into_str(int fd);
 char		**parse_map_into_table(t_map *map);
 
 /*check.c*/
