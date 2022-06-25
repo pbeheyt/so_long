@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 14:47:14 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 15:48:39 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,8 @@ int	clear_all(t_data *data)
 {	
 	free_tab(data->map->tab);
 	clear_mlx(data->image);
-	free(data->map);
-	free(data->image);
 	exit (1);
 }
-
-
 
 void	free_tab(char **tab)
 {	
@@ -39,7 +35,7 @@ void	clear_mlx(t_image *image)
 {
 	t_sprite	*tmp;
 	t_sprite	*sprite;
-	
+
 	tmp = image->list;
 	while (tmp)
 	{

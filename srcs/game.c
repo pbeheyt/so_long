@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 14:15:49 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 15:50:07 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_pos	find_player_position(t_map *map, t_image *image)
 	t_pos		player_pos;
 	int			x;
 	int			y;
-	
+
 	(void)image;
 	sprite = image->player;
 	player_pos.x = 0;
@@ -55,13 +55,12 @@ t_pos	find_player_position(t_map *map, t_image *image)
 	return (player_pos);
 }
 
-void move_player_dir(t_map *map, t_image *image, t_data *data, int dir)
+void	move_player_dir(t_map *map, t_image *image, t_data *data, int dir)
 {
 	t_pos	delta;
 
 	delta.x = 0;
 	delta.y = 0;
-
 	if (dir == UP)
 		delta.x = -1;
 	if (dir == DOWN)
@@ -73,16 +72,19 @@ void move_player_dir(t_map *map, t_image *image, t_data *data, int dir)
 	move_player(map, image, data, delta);
 }
 
-void move_player(t_map *map, t_image *image, t_data *data, t_pos delta)
+void	move_player(t_map *map, t_image *image, t_data *data, t_pos delta)
 {
 	t_pos	player_pos;
 
 	player_pos = find_player_position(map, image);
-	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->wall->c)
+	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y]
+			== image->wall->c)
 		return ;
-	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->collectible->c)
+	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y]
+			== image->collectible->c)
 		map->collectible_count--;
-	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->exit->c)
+	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y]
+			== image->exit->c)
 	{
 		if (map->collectible_count == 0)
 			clear_all(data);

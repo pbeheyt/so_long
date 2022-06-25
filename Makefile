@@ -6,7 +6,7 @@
 #    By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 15:08:45 by pbeheyt           #+#    #+#              #
-#    Updated: 2022/06/24 07:44:29 by pbeheyt          ###   ########.fr        #
+#    Updated: 2022/06/25 15:18:47 by pbeheyt          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,9 @@ SRC		= main.c \
 		check2.c \
 		parsing.c \
 		image.c \
-		# operations2.c \
-		# sort_short_list.c \
-		# sort_short_list2.c \
-		# sort_long_list.c
+		image_utilis.c \
+		game.c \
+		clear.c \
 
 DIR 	= ${addprefix srcs/,${SRC}}
 

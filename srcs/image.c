@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 15:13:18 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 15:48:26 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_sprite	*init_sprite(t_image *image, t_data *data, char *path, char c)
 {
 	t_sprite	*sprite;
-	
+
 	sprite = malloc(sizeof(t_sprite));
 	if (!sprite)
 	{
@@ -25,8 +25,8 @@ t_sprite	*init_sprite(t_image *image, t_data *data, char *path, char c)
 	sprite->path = path;
 	sprite->c = c;
 	sprite->next = NULL;
-	sprite->content = mlx_xpm_file_to_image(image->mlx, sprite->path, 
-		&sprite->size.width, &sprite->size.height);
+	sprite->content = mlx_xpm_file_to_image(image->mlx, sprite->path,
+			&sprite->size.width, &sprite->size.height);
 	return (sprite);
 }
 
@@ -49,7 +49,7 @@ void	load_sprites(t_image *image, t_data *data)
 void	*find_content(t_image *image, char c)
 {
 	t_sprite	*tmp;
-	
+
 	tmp = image->list;
 	while (tmp)
 	{
@@ -64,8 +64,7 @@ void	load_map(t_map *map, t_image *image, t_data *data)
 {	
 	int		x;
 	int		y;
-	int		c;
-	
+
 	if (!image->sprites_loaded)
 		load_sprites(image, data);
 	ft_putnbr_fd(map->move_count, 1);
@@ -76,9 +75,8 @@ void	load_map(t_map *map, t_image *image, t_data *data)
 		y = -1;
 		while (++y < map->size.width)
 		{
-			c = map->tab[x][y];
-			mlx_put_image_to_window(image->mlx, image->win, find_content(image, c),
-				(y * 64), (x * 64));
+			mlx_put_image_to_window(image->mlx, image->win,
+				find_content(image, map->tab[x][y]), (y * 64), (x * 64));
 		}
 	}
 }

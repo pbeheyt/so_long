@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 14:13:20 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/25 15:52:08 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_map
 {
 	int				error;
 	char			*name;
-	char 			**tab;
+	char			**tab;
 	t_size			size;
 	t_pos			player_pos;
 	t_pos			delta;
@@ -110,8 +110,8 @@ t_sprite	*get_list_last(t_sprite *lst);
 /*game.c*/
 int			keyboard_input(int keycode, t_data *data);
 t_pos		find_player_position(t_map *map, t_image *image);
-void 		move_player_dir(t_map *map, t_image *image, t_data *data, int dir);
-void 		move_player(t_map *map, t_image *image, t_data *data, t_pos delta);
+void		move_player_dir(t_map *map, t_image *image, t_data *data, int dir);
+void		move_player(t_map *map, t_image *image, t_data *data, t_pos delta);
 
 /*clear.c*/
 int			clear_all(t_data *data);
