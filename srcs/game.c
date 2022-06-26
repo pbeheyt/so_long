@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 15:50:07 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/26 11:11:18 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,25 @@ void	move_player_dir(t_map *map, t_image *image, t_data *data, int dir)
 	delta.x = 0;
 	delta.y = 0;
 	if (dir == UP)
+	{
 		delta.x = -1;
+		image->player->behavior = GO_UP;
+	}
 	if (dir == DOWN)
+	{
 		delta.x = 1;
+		image->player->behavior = GO_DOWN;
+	}	
 	if (dir == LEFT)
+	{
 		delta.y = -1;
+		image->player->behavior = GO_LEFT;
+	}
 	if (dir == RIGHT)
+	{
 		delta.y = 1;
+		image->player->behavior = GO_RIGHT;
+	}
 	move_player(map, image, data, delta);
 }
 

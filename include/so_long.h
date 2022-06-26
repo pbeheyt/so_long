@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/26 10:00:50 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/26 11:03:52 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_sprite
 	char			*path;
 	char			c;
 	t_size			size;
+	int				behavior;
 	struct s_sprite	*next;
 }					t_sprite;
 
@@ -81,6 +82,15 @@ enum e_dir
 	DOWN,
 	LEFT,
 	RIGHT,
+};
+
+enum e_behavior
+{
+	STATIC,
+	GO_UP,
+	GO_DOWN,
+	GO_LEFT,
+	GO_RIGHT,
 };
 
 /*parsing.c*/

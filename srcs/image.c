@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/26 10:02:20 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/26 11:14:10 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,19 @@ t_sprite	*init_sprite(t_image *image, t_data *data, char *path, char c)
 	return (sprite);
 }
 
+char *find_path(t_sprite *sprite)
+{
+	if (sprite->behavior == GO_UP)
+		return ("img/playerU.xpm");
+	if (sprite->behavior == GO_DOWN)
+		return ("img/playerD.xpm");
+	if (sprite->behavior == GO_LEFT)
+		return ("img/playerL.xpm");
+	if (sprite->behavior == GO_RIGHT)
+		return ("img/playerR.xpm");
+	return (NULL);
+}
+
 void	load_sprites(t_image *image, t_data *data)
 {
 	image->list = NULL;
@@ -41,7 +54,10 @@ void	load_sprites(t_image *image, t_data *data)
 	list_add_back(&image->list, image->collectible);
 	image->exit = init_sprite(image, data, "img/exit.xpm", 'E');
 	list_add_back(&image->list, image->exit);
-	image->player = init_sprite(image, data, "img/playerL.xpm", 'P');
+	if (!image->sprites_loaded)
+		image->player = init_sprite(image, data, "img/playerU.xpm", 'P');
+	else
+		image->player = init_sprite(image, data, find_path(image->player), 'P');
 	list_add_back(&image->list, image->player);
 	image->sprites_loaded = 1;
 }
@@ -65,8 +81,7 @@ void	load_map(t_map *map, t_image *image, t_data *data)
 	int		x;
 	int		y;
 
-	if (!image->sprites_loaded)
-		load_sprites(image, data);
+	load_sprites(image, data);
 	ft_putnbr_fd(map->move_count, 1);
 	ft_putchar_fd('\n', 1);
 	x = -1;
