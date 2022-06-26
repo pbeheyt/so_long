@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 15:46:14 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/26 09:53:54 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	init_map(t_map *map, int ac, char **av)
 void	init_mlx(t_map *map, t_image *image)
 {
 	image->mlx = mlx_init();
-	image->win = mlx_new_window(image->mlx, map->size.width * 64,
-			map->size.height * 64, "SO_LONG");
+	image->win = mlx_new_window(image->mlx, map->size.width * TILE_SIZE,
+			map->size.height * TILE_SIZE, "SO_LONG");
 	image->sprites_loaded = 0;
 }
 

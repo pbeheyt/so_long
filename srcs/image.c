@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 15:48:26 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/26 10:02:20 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	load_sprites(t_image *image, t_data *data)
 	image->list = NULL;
 	image->empty = init_sprite(image, data, "img/empty.xpm", '0');
 	list_add_back(&image->list, image->empty);
-	image->wall = init_sprite(image, data, "img/bush.xpm", '1');
+	image->wall = init_sprite(image, data, "img/wall.xpm", '1');
 	list_add_back(&image->list, image->wall);
-	image->collectible = init_sprite(image, data, "img/cheese.xpm", 'C');
+	image->collectible = init_sprite(image, data, "img/collectible.xpm", 'C');
 	list_add_back(&image->list, image->collectible);
-	image->exit = init_sprite(image, data, "img/oball.xpm", 'E');
+	image->exit = init_sprite(image, data, "img/exit.xpm", 'E');
 	list_add_back(&image->list, image->exit);
-	image->player = init_sprite(image, data, "img/rrat.xpm", 'P');
+	image->player = init_sprite(image, data, "img/playerL.xpm", 'P');
 	list_add_back(&image->list, image->player);
 	image->sprites_loaded = 1;
 }
@@ -76,7 +76,7 @@ void	load_map(t_map *map, t_image *image, t_data *data)
 		while (++y < map->size.width)
 		{
 			mlx_put_image_to_window(image->mlx, image->win,
-				find_content(image, map->tab[x][y]), (y * 64), (x * 64));
+				find_content(image, map->tab[x][y]), (y * TILE_SIZE), (x * TILE_SIZE));
 		}
 	}
 }
