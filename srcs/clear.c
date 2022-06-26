@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 15:48:39 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/26 21:34:17 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	clear_mlx(t_image *image)
 	while (tmp)
 	{
 		sprite = tmp;
+		printf("destroy : %s\n", tmp->path);
 		mlx_destroy_image(image->mlx, tmp->content);
 		tmp = tmp->next;
 		free (sprite);

@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/26 13:39:50 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/26 21:36:10 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_image
 	void			*mlx;
 	void			*win;
 	t_sprite		*list;
+	t_sprite		**list_to_free;
 	t_sprite		*empty;
 	t_sprite		*wall;
 	t_sprite		*collectible;

@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/26 13:54:58 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/26 21:53:47 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 t_sprite	*init_sprite(t_image *image, t_data *data, char *path, char c)
 {
 	t_sprite	*sprite;
-
+	t_sprite	*tmp;
+	int			exist;
+	
+	exist = 0;
+	image->list_to_free = NULL;
 	sprite = malloc(sizeof(t_sprite));
 	if (!sprite)
 	{
@@ -25,8 +29,22 @@ t_sprite	*init_sprite(t_image *image, t_data *data, char *path, char c)
 	sprite->path = path;
 	sprite->c = c;
 	sprite->next = NULL;
+	sprite->behavior = STATIC;
 	sprite->content = mlx_xpm_file_to_image(image->mlx, sprite->path,
 			&sprite->size.width, &sprite->size.height);
+	list_add_back(&image->list, sprite);
+	printf("create : %s\n", sprite->path);
+	while (tmp)
+	{	
+		if (tmp->path == sprite->path)
+			exist = 1;
+	tmp = tmp->next;
+	}
+	if (!exist)
+	{
+		list_add_back(image->list_to_free, sprite);
+		printf("create a free : %s\n", sprite->path);
+	}
 	return (sprite);
 }
 
@@ -52,11 +70,6 @@ char *find_path(t_sprite *sprite)
 		if (sprite->behavior == KILL)
 			return ("img/opponentK.xpm");		
 	}
-	if (sprite->c == 'O')
-	{
-		if (sprite->behavior == STATIC)
-			return ("img/opponentD.xpm");
-	}
 	return (NULL);
 }
 
@@ -66,24 +79,17 @@ void	load_sprites(t_image *image, t_data *data)
 	image->empty = init_sprite(image, data, "img/empty.xpm", '0');
 	image->wall = init_sprite(image, data, "img/wall.xpm", '1');
 	image->collectible = init_sprite(image, data, "img/collectible.xpm", 'C');
+	image->opponent = init_sprite(image, data, "img/opponentD.xpm", 'O');
 	if (!image->sprites_loaded)
 	{
 		image->exit = init_sprite(image, data, "img/exit.xpm", 'E');
 		image->player = init_sprite(image, data, "img/playerU.xpm", 'P');
-		image->opponent = init_sprite(image, data, "img/opponentD.xpm", 'O');
 	}
 	else
 	{
 		image->exit = init_sprite(image, data, find_path(image->exit), 'E');
 		image->player = init_sprite(image, data, find_path(image->player), 'P');
-		image->opponent = init_sprite(image, data, find_path(image->opponent), 'O');
 	}
-	list_add_back(&image->list, image->empty);
-	list_add_back(&image->list, image->wall);
-	list_add_back(&image->list, image->collectible);
-	list_add_back(&image->list, image->exit);
-	list_add_back(&image->list, image->player);
-	list_add_back(&image->list, image->opponent);
 	image->sprites_loaded = 1;
 }
 
