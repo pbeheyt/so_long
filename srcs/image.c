@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/26 11:14:10 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/26 11:42:58 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	load_sprites(t_image *image, t_data *data)
 	else
 		image->player = init_sprite(image, data, find_path(image->player), 'P');
 	list_add_back(&image->list, image->player);
+	image->opponent = init_sprite(image, data, "img/opponentD.xpm", 'O');
+	list_add_back(&image->list, image->opponent);
 	image->sprites_loaded = 1;
 }
 

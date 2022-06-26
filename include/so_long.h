@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/26 11:03:52 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/26 11:36:21 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_image
 	t_sprite		*collectible;
 	t_sprite		*exit;
 	t_sprite		*player;
+	t_sprite		*opponent;
 	int				sprites_loaded;
 }					t_image;
 
