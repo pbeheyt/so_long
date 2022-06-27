@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/27 14:21:26 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/27 19:21:54 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "libft.h"
 
 # define TILE_SIZE 128
+# define IMAGE_COUNT 12
 
 typedef struct s_size
 {
@@ -52,8 +53,8 @@ typedef struct s_sprite
 	void			*content;
 	char			*path;
 	char			c;
+	char			behavior;
 	t_size			size;
-	int				behavior;
 	struct s_sprite	*next;
 }					t_sprite;
 
@@ -62,13 +63,8 @@ typedef struct s_image
 	void			*mlx;
 	void			*win;
 	t_sprite		*list;
-	t_sprite		**list_to_free;
-	t_sprite		*empty;
-	t_sprite		*wall;
-	t_sprite		*collectible;
-	t_sprite		*exit;
-	t_sprite		*player;
-	t_sprite		*opponent;
+	char			exit_behavior;
+	char			player_behavior;
 	int				sprites_loaded;
 }					t_image;
 
@@ -86,16 +82,16 @@ enum e_dir
 	RIGHT,
 };
 
-enum e_behavior
-{
-	STATIC,
-	GO_UP,
-	GO_DOWN,
-	GO_LEFT,
-	GO_RIGHT,
-	KILL,
-	END,
-};
+// enum e_behavior
+// {
+// 	S,	//STATIC
+// 	U,	//UP
+// 	D,	//DOWN
+// 	L,	//LEFT
+// 	R,	//RIGHT
+// 	K,	//KILLED
+// 	E,	//END
+// };
 
 /*parsing.c*/
 char		*put_map_into_str(int fd);
@@ -113,7 +109,7 @@ int			is_content(char c, int *exit_count, int *player_count,
 void		check_content(t_map *map);
 
 /*image.c*/
-t_sprite	*init_sprite(t_image *image, t_data *data, char *path, char c);
+void	init_sprites(t_image *image, t_data *s_data);
 void		load_sprites(t_image *image, t_data *data);
 void		*find_content(t_image *image, char c);
 void		load_map(t_map *map, t_image *image, t_data *data);
@@ -124,7 +120,7 @@ t_sprite	*get_list_last(t_sprite *lst);
 
 /*game.c*/
 int			keyboard_input(int keycode, t_data *data);
-t_pos		find_player_position(t_map *map, t_image *image);
+t_pos		find_player_position(t_map *map);
 void		move_player_dir(t_map *map, t_image *image, t_data *data, int dir);
 void		move_player(t_map *map, t_image *image, t_data *data, t_pos delta);
 

@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/27 14:24:12 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/27 18:51:32 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,12 @@ int	keyboard_input(int keycode, t_data *data)
 	return (0);
 }
 
-t_pos	find_player_position(t_map *map, t_image *image)
+t_pos	find_player_position(t_map *map)
 {	
-	t_sprite	*sprite;
 	t_pos		player_pos;
 	int			x;
 	int			y;
 
-	sprite = image->player;
 	player_pos.x = 0;
 	player_pos.y = 0;
 	x = -1;
@@ -43,7 +41,7 @@ t_pos	find_player_position(t_map *map, t_image *image)
 		y = -1;
 		while (++y < map->size.width)
 		{
-			if (map->tab[x][y] == sprite->c)
+			if (map->tab[x][y] == 'P')
 			{
 				player_pos.x = x;
 				player_pos.y = y;
@@ -63,22 +61,22 @@ void	move_player_dir(t_map *map, t_image *image, t_data *data, int dir)
 	if (dir == UP)
 	{
 		delta.x = -1;
-		image->player->behavior = GO_UP;
+		image->player_behavior = 'U';
 	}
 	if (dir == DOWN)
 	{
 		delta.x = 1;
-		image->player->behavior = GO_DOWN;
+		image->player_behavior = 'D';
 	}	
 	if (dir == LEFT)
 	{
 		delta.y = -1;
-		image->player->behavior = GO_LEFT;
+		image->player_behavior = 'L';
 	}
 	if (dir == RIGHT)
 	{
 		delta.y = 1;
-		image->player->behavior = GO_RIGHT;
+		image->player_behavior = 'R';
 	}
 	move_player(map, image, data, delta);
 }
@@ -87,28 +85,28 @@ void	move_player(t_map *map, t_image *image, t_data *data, t_pos delta)
 {
 	t_pos	player_pos;
 
-	player_pos = find_player_position(map, image);
-	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y]== image->wall->c)
+	player_pos = find_player_position(map);
+	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y]== '1')
 		return ;
-	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->collectible->c)
+	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == 'C')
 		map->collectible_count--;
-	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->opponent->c)
-	{
-		image->player->behavior = KILL;
-		map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = image->player->c;
-		map->tab[player_pos.x][player_pos.y] = image->empty->c;
-		load_map(map, image, data);
-		clear_all(data);
-	}
-	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->exit->c)
+	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == 'E')
 	{
 		if (map->collectible_count == 0)
 			clear_all(data);
 		else
 			return ;
 	}
-	map->tab[player_pos.x][player_pos.y] = image->empty->c;
-	map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = image->player->c;
+	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == 'O')
+	{
+		image->player_behavior = 'K';
+		map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = 'P';
+		map->tab[player_pos.x][player_pos.y] = 'O';
+		load_map(map, image, data);
+		clear_all(data);
+	}
+	map->tab[player_pos.x][player_pos.y] = '0';
+	map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = 'P';
 	ft_putnbr_fd(map->move_count++, 1);
 	ft_putchar_fd('\n', 1);
 	load_map(map, image, data);

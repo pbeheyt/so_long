@@ -6,85 +6,76 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/27 14:29:10 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/27 19:23:09 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_sprite	*init_sprite(t_image *image, t_data *data, char *path, char c)
+static char	**pathes(void)
+{
+	static char	*pathes[IMAGE_COUNT] = {
+		"image/0S.xpm",
+		"image/1S.xpm",
+		"image/CS.xpm",
+		"image/EE.xpm",
+		"image/ES.xpm",
+		"image/OS.xpm",
+		"image/PK.xpm",
+		"image/PD.xpm",
+		"image/PL.xpm",
+		"image/PR.xpm",
+		"image/PS.xpm",
+		"image/PU.xpm",
+	};
+
+	return (pathes);
+}
+
+void	init_sprites(t_image *image, t_data *data)
 {
 	t_sprite	*sprite;
-	
-	sprite = malloc(sizeof(t_sprite));
-	if (!sprite)
-	{
-		ft_putstr_fd("Error\nMemory allocation failed\n", 2);
-		clear_all(data);
-	}
-	sprite->path = path;
-	sprite->c = c;
-	sprite->next = NULL;
-	sprite->behavior = STATIC;
-	sprite->content = mlx_xpm_file_to_image(image->mlx, sprite->path,
-			&sprite->size.width, &sprite->size.height);
-	list_add_back(&image->list, sprite);
-	return (sprite);
-}
+	char 		**tab;
+	int 		i;
 
-char *find_path(t_sprite *sprite)
-{
-	if (sprite->c == 'E')
-	{
-		if (sprite->behavior == STATIC)
-			return ("img/exit.xpm");
-		if (sprite->behavior == END)
-			return ("img/exitF.xpm");
-	}
-	if (sprite->c == 'P')
-	{
-		if (sprite->behavior == GO_UP)
-			return ("img/playerU.xpm");
-		if (sprite->behavior == GO_DOWN)
-			return ("img/playerD.xpm");
-		if (sprite->behavior == GO_LEFT)
-			return ("img/playerL.xpm");
-		if (sprite->behavior == GO_RIGHT)
-			return ("img/playerR.xpm");
-		if (sprite->behavior == KILL)
-			return ("img/opponentK.xpm");		
-	}
-	return (NULL);
-}
-
-void	load_sprites(t_image *image, t_data *data)
-{
 	image->list = NULL;
-	image->empty = init_sprite(image, data, "img/empty.xpm", '0');
-	image->wall = init_sprite(image, data, "img/wall.xpm", '1');
-	image->collectible = init_sprite(image, data, "img/collectible.xpm", 'C');
-	image->opponent = init_sprite(image, data, "img/opponentD.xpm", 'O');
-	if (!image->sprites_loaded)
+	tab = pathes();
+	i = -1;
+	while (++i < IMAGE_COUNT)
 	{
-		image->exit = init_sprite(image, data, "img/exit.xpm", 'E');
-		image->player = init_sprite(image, data, "img/playerU.xpm", 'P');
+		sprite = malloc(sizeof(t_sprite));
+		if (!sprite)
+		{
+			ft_putstr_fd("Error\nMemory allocation failed\n", 2);
+			clear_all(data);
+		}
+		sprite->path = tab[i];
+		sprite->c = tab[i][6];
+		sprite->behavior = tab[i][7];
+		sprite->next = NULL;
+		sprite->content = mlx_xpm_file_to_image(image->mlx, sprite->path,
+			&sprite->size.width, &sprite->size.height);
+		list_add_back(&image->list, sprite);
 	}
-	else
-	{
-		image->exit = init_sprite(image, data, find_path(image->exit), 'E');
-		image->player = init_sprite(image, data, find_path(image->player), 'P');
-	}
-	image->sprites_loaded = 1;
 }
 
 void	*find_content(t_image *image, char c)
 {
 	t_sprite	*tmp;
+	
+	
 
 	tmp = image->list;
 	while (tmp)
 	{
-		if (tmp->c == c)
+		if (c == 'P' && tmp->behavior == image->player_behavior && tmp->c == 'P')
+		{	
+			printf("%s\n", tmp->path);
+			return (tmp->content);
+		}
+		else if (c == 'E' && tmp->behavior == image->exit_behavior && tmp->c == 'E')
+			return (tmp->content);
+		else if (c != 'P' && c != 'E' && tmp->c == c)
 			return (tmp->content);
 		tmp = tmp->next;
 	}
@@ -96,9 +87,9 @@ void	load_map(t_map *map, t_image *image, t_data *data)
 	int		x;
 	int		y;
 
+	(void)data;
 	if (map->collectible_count == 0)
-		image->exit->behavior = END;
-	load_sprites(image, data);
+		image->exit_behavior = 'E';
 	x = -1;
 	while (++x < map->size.height)
 	{
