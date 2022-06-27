@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/27 19:21:54 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/27 19:31:39 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,12 @@ int			check_horizontal_wall(char *row);
 void		check_walls(t_map *map);
 
 /*check2.c*/
-int			is_content(char c, int *exit_count, int *player_count,
-				t_map *map);
+int			is_content(char c, int *exit_count, int *player_count, t_map *map);
 void		check_content(t_map *map);
 
 /*image.c*/
-void	init_sprites(t_image *image, t_data *s_data);
-void		load_sprites(t_image *image, t_data *data);
+void		init_mlx(t_map *map, t_image *image, t_data *data);
+void		init_sprites(t_image *image, t_data *data);
 void		*find_content(t_image *image, char c);
 void		load_map(t_map *map, t_image *image, t_data *data);
 
