@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/26 21:53:47 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/27 14:29:10 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 t_sprite	*init_sprite(t_image *image, t_data *data, char *path, char c)
 {
 	t_sprite	*sprite;
-	t_sprite	*tmp;
-	int			exist;
 	
-	exist = 0;
-	image->list_to_free = NULL;
 	sprite = malloc(sizeof(t_sprite));
 	if (!sprite)
 	{
@@ -33,18 +29,6 @@ t_sprite	*init_sprite(t_image *image, t_data *data, char *path, char c)
 	sprite->content = mlx_xpm_file_to_image(image->mlx, sprite->path,
 			&sprite->size.width, &sprite->size.height);
 	list_add_back(&image->list, sprite);
-	printf("create : %s\n", sprite->path);
-	while (tmp)
-	{	
-		if (tmp->path == sprite->path)
-			exist = 1;
-	tmp = tmp->next;
-	}
-	if (!exist)
-	{
-		list_add_back(image->list_to_free, sprite);
-		printf("create a free : %s\n", sprite->path);
-	}
 	return (sprite);
 }
 
@@ -112,11 +96,9 @@ void	load_map(t_map *map, t_image *image, t_data *data)
 	int		x;
 	int		y;
 
-	load_sprites(image, data);
-	ft_putnbr_fd(map->move_count, 1);
-	ft_putchar_fd('\n', 1);
 	if (map->collectible_count == 0)
 		image->exit->behavior = END;
+	load_sprites(image, data);
 	x = -1;
 	while (++x < map->size.height)
 	{

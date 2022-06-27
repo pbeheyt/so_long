@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/26 21:36:10 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/27 14:21:26 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ char		**parse_map_into_table(t_map *map);
 
 /*check.c*/
 int			check_map(t_map *map);
-void		check_map_file(t_map *map);
 void		check_map_dimensions(t_map *map);
 int			check_horizontal_wall(char *row);
 void		check_walls(t_map *map);

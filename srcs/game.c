@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/26 13:55:40 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/27 14:24:12 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,38 +109,7 @@ void	move_player(t_map *map, t_image *image, t_data *data, t_pos delta)
 	}
 	map->tab[player_pos.x][player_pos.y] = image->empty->c;
 	map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = image->player->c;
-	map->move_count++;
+	ft_putnbr_fd(map->move_count++, 1);
+	ft_putchar_fd('\n', 1);
 	load_map(map, image, data);
 }
-/*
-void	move_player(t_map *map, t_image *image, t_data *data, t_pos delta)
-{
-	t_pos	player_pos;
-
-	player_pos = find_player_position(map, image);
-	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y]
-			== image->wall->c)
-		return ;
-	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y]
-			== image->collectible->c)
-		map->collectible_count--;
-	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->opponent->c)
-	{
-		image->player->behavior = DEAD;
-		map->tab[player_pos.x][player_pos.y] = image->empty->c;
-		map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = image->player->c;
-		load_map(map, image, data);
-		clear_all(data);
-	}
-	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == image->exit->c)
-	{
-		if (map->collectible_count == 0)
-			clear_all(data);
-		else
-			return ;
-	}
-	map->tab[player_pos.x][player_pos.y] = image->empty->c;
-	map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = image->player->c;
-	map->move_count++;
-	load_map(map, image, data);
-}*/

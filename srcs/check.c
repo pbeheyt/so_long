@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 15:45:19 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/27 14:21:36 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	check_map(t_map *map)
 {
-	check_map_file(map);
 	check_map_dimensions(map);
 	check_walls(map);
 	check_content(map);
@@ -25,15 +24,6 @@ int	check_map(t_map *map)
 		return (0);
 	}
 	return (1);
-}
-
-void	check_map_file(t_map *map)
-{
-	int	fd;
-
-	fd = open(map->name, O_RDONLY);
-	if (fd == -1)
-		map->error = 1;
 }
 
 void	check_map_dimensions(t_map *map)
