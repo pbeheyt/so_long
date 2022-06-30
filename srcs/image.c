@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/27 19:23:09 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/30 15:20:54 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ void	*find_content(t_image *image, char c)
 	tmp = image->list;
 	while (tmp)
 	{
-		if (c == 'P' && tmp->behavior == image->player_behavior && tmp->c == 'P')
+		if (c == 'P' && tmp->c == 'P' && tmp->behavior == image->player_behavior)
 		{	
 			printf("%s\n", tmp->path);
 			return (tmp->content);
 		}
-		else if (c == 'E' && tmp->behavior == image->exit_behavior && tmp->c == 'E')
+		else if (c == 'E' && tmp->c == 'E' && tmp->behavior == image->exit_behavior)
 			return (tmp->content);
 		else if (c != 'P' && c != 'E' && tmp->c == c)
 			return (tmp->content);
@@ -86,6 +86,9 @@ void	load_map(t_map *map, t_image *image, t_data *data)
 {	
 	int		x;
 	int		y;
+	t_pos	player_pos;
+
+	player_pos = find_player_position(map);
 
 	(void)data;
 	if (map->collectible_count == 0)
@@ -100,4 +103,16 @@ void	load_map(t_map *map, t_image *image, t_data *data)
 				find_content(image, map->tab[x][y]), (y * TILE_SIZE), (x * TILE_SIZE));
 		}
 	}
+	mlx_string_put(image->mlx, image->win, TILE_SIZE / 4, TILE_SIZE / 4, 0xccccff, "MOVE COUNT");
+	mlx_string_put(image->mlx, image->win, TILE_SIZE / 4 + 32, TILE_SIZE / 4 + 16, 0xccccff, ft_itoa(map->move_count));
+	if (image->end_game == 1)
+		mlx_string_put(image->mlx, image->win,
+			(player_pos.y * TILE_SIZE) + (TILE_SIZE / 4), 
+			(player_pos.x * TILE_SIZE) + (TILE_SIZE / 4),
+			0xccccff, "GAME WIN");
+	if (image->end_game == 2)
+		mlx_string_put(image->mlx, image->win,
+			(player_pos.y * TILE_SIZE) + (TILE_SIZE / 4), 
+			(player_pos.x * TILE_SIZE) + (TILE_SIZE / 4),
+			0xccccff, "GAME LOST");
 }

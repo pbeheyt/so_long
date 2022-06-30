@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/27 19:31:39 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/30 11:28:36 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_image
 	char			exit_behavior;
 	char			player_behavior;
 	int				sprites_loaded;
+	int				end_game;
 }					t_image;
 
 typedef struct s_data

@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/27 19:30:40 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/30 12:44:59 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_mlx(t_map *map, t_image *image, t_data *data)
 	image->win = mlx_new_window(image->mlx, map->size.width * TILE_SIZE,
 			map->size.height * TILE_SIZE, "SO_LONG");
 	image->sprites_loaded = 0;
+	image->end_game = 0;
 	init_sprites(image, data);
 	image->exit_behavior = 'S';
 	image->player_behavior = 'S';

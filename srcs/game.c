@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/27 18:51:32 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/06/30 15:13:03 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@ int	keyboard_input(int keycode, t_data *data)
 {
 	if (keycode == 65307)
 		clear_all(data);
-	else if (keycode == 'W' || keycode == 'w')
+	if (data->image->end_game)
+		return (1);
+	if (keycode == 'W' || keycode == 'w')
 		move_player_dir(data->map, data->image, data, UP);
-	else if (keycode == 'S' || keycode == 's')
+	if (keycode == 'S' || keycode == 's')
 		move_player_dir(data->map, data->image, data, DOWN);
-	else if (keycode == 'A' || keycode == 'a')
+	if (keycode == 'A' || keycode == 'a')
 		move_player_dir(data->map, data->image, data, LEFT);
-	else if (keycode == 'D' || keycode == 'd')
+	if (keycode == 'D' || keycode == 'd')
 		move_player_dir(data->map, data->image, data, RIGHT);
 	return (0);
 }
@@ -93,7 +95,7 @@ void	move_player(t_map *map, t_image *image, t_data *data, t_pos delta)
 	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == 'E')
 	{
 		if (map->collectible_count == 0)
-			clear_all(data);
+			image->end_game = 1;
 		else
 			return ;
 	}
@@ -103,11 +105,10 @@ void	move_player(t_map *map, t_image *image, t_data *data, t_pos delta)
 		map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = 'P';
 		map->tab[player_pos.x][player_pos.y] = 'O';
 		load_map(map, image, data);
-		clear_all(data);
+		image->end_game = 2;
 	}
 	map->tab[player_pos.x][player_pos.y] = '0';
 	map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = 'P';
-	ft_putnbr_fd(map->move_count++, 1);
-	ft_putchar_fd('\n', 1);
+	map->move_count++;
 	load_map(map, image, data);
 }
