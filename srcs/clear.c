@@ -6,18 +6,11 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/27 19:21:07 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/15 09:21:52 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	clear_all(t_data *data)
-{	
-	free_tab(data->map->tab);
-	clear_mlx(data->image);
-	exit (1);
-}
 
 void	free_tab(char **tab)
 {	
@@ -40,7 +33,6 @@ void	clear_mlx(t_image *image)
 	while (tmp)
 	{
 		sprite = tmp;
-		printf("destroy : %s\n", tmp->path);
 		mlx_destroy_image(image->mlx, tmp->content);
 		tmp = tmp->next;
 		free (sprite);
@@ -48,4 +40,11 @@ void	clear_mlx(t_image *image)
 	mlx_destroy_window(image->mlx, image->win);
 	mlx_destroy_display(image->mlx);
 	free(image->mlx);
+}
+
+int	clear_all(t_data *data)
+{	
+	free_tab(data->map->tab);
+	clear_mlx(data->image);
+	exit (1);
 }

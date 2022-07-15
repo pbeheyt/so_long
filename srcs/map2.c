@@ -1,30 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   check2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/27 14:21:36 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/15 07:15:00 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	check_map(t_map *map)
-{
-	check_map_dimensions(map);
-	check_walls(map);
-	check_content(map);
-	if (map->error)
-	{
-		ft_putstr_fd("Error\nInvalid map\n", 2);
-		free_tab(map->tab);
-		return (0);
-	}
-	return (1);
-}
 
 void	check_map_dimensions(t_map *map)
 {
@@ -51,7 +37,7 @@ void	check_map_dimensions(t_map *map)
 	map->size.height = h;
 }
 
-int	check_horizontal_wall(char *row)
+static int	check_horizontal_wall(char *row)
 {
 	int	i;
 
@@ -78,9 +64,50 @@ void	check_walls(t_map *map)
 	while (++i < (h - 1))
 	{
 		if (map->tab[i][0] != '1' || map->tab[i][w - 1] != '1')
-			map->error = 1;
+			map->error = 2;
 	}
 	if (!check_horizontal_wall(map->tab[0])
 		|| !check_horizontal_wall(map->tab[h - 1]))
-		map->error = 1;
+		map->error = 2;
+}
+
+static int	is_content(char c, int *exit_count, int *player_count, t_map *map)
+{
+	if (c == 'C')
+		map->collectible_count += 1;
+	else if (c == 'E')
+		*exit_count += 1;
+	else if (c == 'P')
+		*player_count += 1;
+	if (c == '0' || c == '1' || c == 'C' || c == 'E' || c == 'P' || c == 'O')
+		return (1);
+	return (0);
+}
+
+void	check_content(t_map *map)
+{
+	int	i;
+	int	j;
+	int	exit_count;
+	int	player_count;
+
+	if (map->error)
+		return ;
+	exit_count = 0;
+	player_count = 0;
+	i = 0;
+	while (++i < (map->size.height - 1))
+	{
+		j = 0;
+		while (++j < (map->size.width - 1))
+		{
+			if (!is_content(map->tab[i][j], &exit_count, &player_count, map))
+			{
+				map->error = 3;
+				return ;
+			}
+		}
+	}
+	if (exit_count != 1 || player_count != 1)
+		map->error = 4;
 }

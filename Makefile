@@ -6,20 +6,21 @@
 #    By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 15:08:45 by pbeheyt           #+#    #+#              #
-#    Updated: 2022/06/25 15:18:47 by pbeheyt          ###   ########.fr        #
+#    Updated: 2022/07/15 09:04:56 by pbeheyt          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= so_long
 
-SRC		= main.c \
-		check.c \
-		check2.c \
-		parsing.c \
-		image.c \
-		image_utilis.c \
+SRC		= clear.c \
 		game.c \
-		clear.c \
+		game2.c \
+		image.c \
+		image2.c \
+		main.c \
+		map_parsing.c \
+		map.c \
+		map2.c \
 
 DIR 	= ${addprefix srcs/,${SRC}}
 

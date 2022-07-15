@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image_utilis.c                                     :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/26 20:37:50 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/15 07:40:44 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	list_add_back(t_sprite **lst, t_sprite *new)
+static void	display_map_error(int error)
 {
-	t_sprite	*back;
-
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	back = get_list_last(*lst);
-	back->next = new;
+	if (error == 1)
+		ft_putstr_fd("Error\nInvalid map dimensions\n", 2);
+	if (error == 2)
+		ft_putstr_fd("Error\nInvalid map walls\n", 2);
+	if (error == 3)
+		ft_putstr_fd("Error\nInvalid map content\n", 2);
+	if (error == 4)
+		ft_putstr_fd("Error\nMap must include 1 Player & 1 Exit\n", 2);
 }
 
-t_sprite	*get_list_last(t_sprite *lst)
+int	check_map(t_map *map)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
+	check_map_dimensions(map);
+	check_walls(map);
+	check_content(map);
+	if (map->error)
+	{
+		display_map_error(map->error);
+		free_tab(map->tab);
+		return (0);
+	}
+	return (1);
 }

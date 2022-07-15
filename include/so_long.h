@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/15 06:56:55 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/15 09:14:27 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define TILE_SIZE 128
 # define IMAGE_COUNT 16
-# define INT_DELAY 20000
+# define INT_DELAY 5000
 
 typedef struct s_size
 {
@@ -87,41 +87,35 @@ enum e_dir
 	RIGHT,
 };
 
-/*parsing.c*/
+/*map_parsing.c*/
 char		*put_map_into_str(int fd);
 char		**parse_map_into_table(t_map *map);
 
-/*check.c*/
+/*map.c*/
 int			check_map(t_map *map);
-void		check_map_dimensions(t_map *map);
-int			check_horizontal_wall(char *row);
-void		check_walls(t_map *map);
 
-/*check2.c*/
-int			is_content(char c, int *exit_count, int *player_count, t_map *map);
+/*map2.c*/
+void		check_map_dimensions(t_map *map);
+void		check_walls(t_map *map);
 void		check_content(t_map *map);
 
 /*image.c*/
-void		init_mlx(t_map *map, t_image *image, t_data *data);
 void		init_sprites(t_image *image, t_data *data);
-void		*find_content(t_image *image, char c);
+
+/*image2.c*/
 int			load_map(t_data *data);
 int			load_animated_walls(t_data *data);
-void 		display_text(t_map *map, t_image *image);
-
-/*image_utilis.c*/
-void		list_add_back(t_sprite **lst, t_sprite *new);
-t_sprite	*get_list_last(t_sprite *lst);
 
 /*game.c*/
 int			keyboard_input(int keycode, t_data *data);
 t_pos		find_player_position(t_map *map);
-void		move_player_dir(t_map *map, t_image *image, t_data *data, int dir);
-void		move_player(t_map *map, t_image *image, t_data *data, t_pos delta);
+
+/*game2.c*/
+void		move_player(t_map *map, t_image *image, t_data *data, int dir);
 
 /*clear.c*/
-int			clear_all(t_data *data);
 void		free_tab(char **tab);
 void		clear_mlx(t_image *image);
+int			clear_all(t_data *data);
 
 #endif
