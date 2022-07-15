@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/30 11:28:36 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/15 06:08:51 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include "libft.h"
 
 # define TILE_SIZE 128
-# define IMAGE_COUNT 12
+# define IMAGE_COUNT 15
+# define INT_DELAY 20000
 
 typedef struct s_size
 {
@@ -65,7 +66,10 @@ typedef struct s_image
 	t_sprite		*list;
 	char			exit_behavior;
 	char			player_behavior;
+	char			wall_behavior;
 	int				sprites_loaded;
+	int				map_delay;
+	int				map_first_load;
 	int				end_game;
 }					t_image;
 
@@ -82,17 +86,6 @@ enum e_dir
 	LEFT,
 	RIGHT,
 };
-
-// enum e_behavior
-// {
-// 	S,	//STATIC
-// 	U,	//UP
-// 	D,	//DOWN
-// 	L,	//LEFT
-// 	R,	//RIGHT
-// 	K,	//KILLED
-// 	E,	//END
-// };
 
 /*parsing.c*/
 char		*put_map_into_str(int fd);
@@ -112,7 +105,9 @@ void		check_content(t_map *map);
 void		init_mlx(t_map *map, t_image *image, t_data *data);
 void		init_sprites(t_image *image, t_data *data);
 void		*find_content(t_image *image, char c);
-void		load_map(t_map *map, t_image *image, t_data *data);
+int			load_map(t_data *data);
+int			load_animated_walls(t_data *data);
+void 		display_text(t_map *map, t_image *image);
 
 /*image_utilis.c*/
 void		list_add_back(t_sprite **lst, t_sprite *new);

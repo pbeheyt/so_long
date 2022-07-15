@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/30 12:44:59 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/15 06:13:54 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ void	init_mlx(t_map *map, t_image *image, t_data *data)
 	init_sprites(image, data);
 	image->exit_behavior = 'S';
 	image->player_behavior = 'S';
+	image->wall_behavior = '0';
+	image->map_delay = -1;
+	image->map_first_load = 1;
 }
 
 int	main(int ac, char **av)
@@ -50,11 +53,12 @@ int	main(int ac, char **av)
 	if (!init_map(&map, ac, av) || !check_map(&map))
 		return (0);
 	init_mlx(&map, &image, &data);
-	load_map(&map, &image, &data);
 	data.map = &map;
 	data.image = &image;
+	load_map(&data);
 	mlx_key_hook(image.win, keyboard_input, &data);
 	mlx_hook(image.win, 17, 0, clear_all, &data);
+	mlx_loop_hook(image.mlx, load_animated_walls, &data);
 	mlx_loop(image.mlx);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/30 15:13:03 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/15 06:07:25 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,11 @@ void	move_player(t_map *map, t_image *image, t_data *data, t_pos delta)
 		image->player_behavior = 'K';
 		map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = 'P';
 		map->tab[player_pos.x][player_pos.y] = 'O';
-		load_map(map, image, data);
+		load_map(data);
 		image->end_game = 2;
 	}
 	map->tab[player_pos.x][player_pos.y] = '0';
 	map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = 'P';
 	map->move_count++;
-	load_map(map, image, data);
+	load_map(data);
 }
