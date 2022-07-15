@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/15 06:08:51 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/15 06:56:55 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "libft.h"
 
 # define TILE_SIZE 128
-# define IMAGE_COUNT 15
+# define IMAGE_COUNT 16
 # define INT_DELAY 20000
 
 typedef struct s_size

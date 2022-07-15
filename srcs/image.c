@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/15 06:31:32 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/15 06:56:44 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static char	**pathes(void)
 		"image/PR.xpm",
 		"image/PS.xpm",
 		"image/PU.xpm",
+		"image/PE.xpm",
 	};
 
 	return (pathes);

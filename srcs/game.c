@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/15 06:07:25 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/15 06:58:13 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,10 @@ void	move_player(t_map *map, t_image *image, t_data *data, t_pos delta)
 	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == 'E')
 	{
 		if (map->collectible_count == 0)
+		{	
 			image->end_game = 1;
+			image->player_behavior = 'E';
+		}
 		else
 			return ;
 	}
