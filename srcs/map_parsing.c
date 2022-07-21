@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 15:58:57 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/21 04:34:17 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	*put_map_into_str(int fd)
+static char	*put_map_into_str(int fd, t_map *map)
 {
 	char	*row;
 	char	*str;
@@ -30,6 +30,8 @@ char	*put_map_into_str(int fd)
 		row = get_next_line(fd);
 		if (!row)
 			break ;
+		if (ft_strlen(row) < 4)
+			map->error = 1;
 		tmp = ft_strjoin(str, row);
 		free (str);
 		str = tmp;
@@ -51,7 +53,7 @@ char	**parse_map_into_table(t_map *map)
 		ft_putstr_fd("Error\nInvalid map file\n", 2);
 		return (NULL);
 	}
-	str = put_map_into_str(fd);
+	str = put_map_into_str(fd, map);
 	if (!str)
 		return (NULL);
 	tab = ft_split(str, '\n');

@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/21 01:45:00 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/21 04:37:48 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	display_map_error(int error)
 		ft_putstr_fd("Error\nInvalid map content\n", 2);
 	if (error == 4)
 		ft_putstr_fd(
-			"Error\nMap must include 1 Player, 1 Exit & at least 1 Item\n", 2);
+			"Error\nMap must include 1 Player & at least 1 Exit & 1 Item\n", 2);
 }
 
 int	check_map(t_map *map)
