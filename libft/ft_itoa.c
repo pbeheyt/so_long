@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 11:34:40 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/05/12 00:12:02 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/21 02:30:13 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ char	*ft_itoa(int n)
 	nl = n;
 	i = nb_len(nl);
 	str = malloc(sizeof(char) * i + 1);
-	if (str == 0)
-		return (0);
+	if (!str)
+		return (NULL);
 	str[i] = 0;
 	i--;
 	if (nl < 0)

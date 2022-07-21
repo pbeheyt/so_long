@@ -6,23 +6,23 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/21 01:22:12 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/21 02:46:40 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	display_text(t_map *map, t_image *image, int player_move)
+static void	display_text(t_data *data, t_map *map, t_image *image)
 {
 	t_pos	player_pos;
 	char	*move_count;
 
 	player_pos = find_player_position(map);
 	move_count = ft_itoa(map->move_count);
-	if (player_move)
+	if (!move_count)
 	{
-		ft_putstr_fd(move_count, 1);
-		ft_putchar_fd('\n', 1);
+		ft_putstr_fd("Error\nMemory allocation failed\n", 2);
+		clear_all(data);
 	}
 	mlx_string_put(image->mlx, image->win,
 		TILE_SIZE / 4 + 5, TILE_SIZE / 4 - 10, 0x000000, "MOVE COUNT");
@@ -97,7 +97,7 @@ int	load_map(t_data *data)
 		image->exit_behavior = 'E';
 	display_map(map, image, 0);
 	image->map_first_load = 0;
-	display_text(map, image, 1);
+	display_text(data, map, image);
 	return (1);
 }
 
@@ -117,6 +117,6 @@ int	load_animated_walls(t_data *data)
 	if (image->wall_behavior == '4')
 		image->wall_behavior = '0';
 	display_map(map, image, 1);
-	display_text(map, image, 0);
+	display_text(data, map, image);
 	return (1);
 }

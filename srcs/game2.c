@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/21 01:36:32 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/21 02:42:55 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,7 @@ void	move_player(t_map *map, t_image *image, t_data *data, int dir)
 	map->tab[player_pos.x][player_pos.y] = '0';
 	map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = 'P';
 	map->move_count++;
+	ft_putnbr_fd(map->move_count, 1);
+	ft_putchar_fd('\n', 1);
 	load_map(data);
 }
