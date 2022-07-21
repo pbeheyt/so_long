@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/21 02:42:55 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/21 03:41:17 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,10 @@ static t_pos	player_direction(t_image *image, int dir)
 	return (delta);
 }
 
-static void	player_killed(t_data *data, t_pos player_pos, t_pos delta)
+static void	player_killed(t_image *image)
 {
-	t_image	*image;
-	t_map	*map;
-
-	map = data->map;
-	image = data->image;
-	image->player_behavior = 'K';
-	map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = 'P';
-	map->tab[player_pos.x][player_pos.y] = 'O';
-	load_map(data);
 	image->end_game = 2;
+	image->player_behavior = 'K';
 }
 
 static int	player_on_exit(t_map *map, t_image *image)
@@ -78,7 +70,7 @@ void	move_player(t_map *map, t_image *image, t_data *data, int dir)
 	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == 'C')
 		map->collectible_count--;
 	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == 'O')
-		player_killed(data, player_pos, delta);
+		player_killed(image);
 	if (map->tab[player_pos.x + delta.x][player_pos.y + delta.y] == 'E')
 	{
 		if (!player_on_exit(map, image))
@@ -86,7 +78,7 @@ void	move_player(t_map *map, t_image *image, t_data *data, int dir)
 	}
 	map->tab[player_pos.x][player_pos.y] = '0';
 	map->tab[player_pos.x + delta.x][player_pos.y + delta.y] = 'P';
-	map->move_count++;
+	map->move_count += 1;
 	ft_putnbr_fd(map->move_count, 1);
 	ft_putchar_fd('\n', 1);
 	load_map(data);
