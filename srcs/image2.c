@@ -6,19 +6,24 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/15 09:22:59 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/21 01:22:12 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	display_text(t_map *map, t_image *image)
+static void	display_text(t_map *map, t_image *image, int player_move)
 {
 	t_pos	player_pos;
 	char	*move_count;
 
 	player_pos = find_player_position(map);
 	move_count = ft_itoa(map->move_count);
+	if (player_move)
+	{
+		ft_putstr_fd(move_count, 1);
+		ft_putchar_fd('\n', 1);
+	}
 	mlx_string_put(image->mlx, image->win,
 		TILE_SIZE / 4 + 5, TILE_SIZE / 4 - 10, 0x000000, "MOVE COUNT");
 	mlx_string_put(image->mlx, image->win,
@@ -91,8 +96,8 @@ int	load_map(t_data *data)
 	if (map->collectible_count == 0)
 		image->exit_behavior = 'E';
 	display_map(map, image, 0);
-	display_text(map, image);
 	image->map_first_load = 0;
+	display_text(map, image, 1);
 	return (1);
 }
 
@@ -112,6 +117,6 @@ int	load_animated_walls(t_data *data)
 	if (image->wall_behavior == '4')
 		image->wall_behavior = '0';
 	display_map(map, image, 1);
-	display_text(map, image);
+	display_text(map, image, 0);
 	return (1);
 }

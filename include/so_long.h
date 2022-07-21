@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:55 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/15 09:14:27 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/21 00:53:32 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define TILE_SIZE 128
 # define IMAGE_COUNT 16
-# define INT_DELAY 5000
+# define INT_DELAY 20000
 
 typedef struct s_size
 {
@@ -44,7 +44,6 @@ typedef struct s_map
 	t_size			size;
 	t_pos			player_pos;
 	t_pos			delta;
-	int				width;
 	int				collectible_count;
 	int				move_count;
 }					t_map;
