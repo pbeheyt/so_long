@@ -6,7 +6,7 @@
 #    By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 15:08:45 by pbeheyt           #+#    #+#              #
-#    Updated: 2022/07/15 09:04:56 by pbeheyt          ###   ########.fr        #
+#    Updated: 2022/07/21 06:11:59 by pbeheyt          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,19 +22,33 @@ SRC		= clear.c \
 		map.c \
 		map2.c \
 
-DIR 	= ${addprefix srcs/,${SRC}}
+SRC_BONUS	= clear_bonus.c \
+			game_bonus.c \
+			game2_bonus.c \
+			image_bonus.c \
+			image2_bonus.c \
+			main_bonus.c \
+			map_parsing_bonus.c \
+			map_bonus.c \
+			map2_bonus.c \
 
-HEAD	= -I libft -I include -I mlx
+DIR 		= ${addprefix srcs/,${SRC}}
 
-CC 		= gcc
+DIR_BONUS 	= ${addprefix srcs_bonus/,${SRC_BONUS}}
 
-CFLAGS 	= -Wall -Wextra -Werror -g
+HEAD		= -I libft -I include -I mlx
 
-OBJS 	= ${DIR:.c=.o}
+CC 			= gcc
 
-LD_FLAG	= -L libft -L mlx
+CFLAGS 		= -Wall -Wextra -Werror -g
 
-MLX_FLAG= -lm -lmlx -lXext -lX11
+OBJS 		= ${DIR:.c=.o}
+
+OBJS_BONUS	= ${DIR_BONUS:.c=.o}
+
+LD_FLAG		= -L libft -L mlx
+
+MLX_FLAG	= -lm -lmlx -lXext -lX11
 
 all: $(NAME)
 
@@ -43,6 +57,10 @@ $(NAME): $(OBJS)
 	make -C mlx
 	$(CC) $(CFLAGS) $(LD_FLAG) $(OBJS) -o $(NAME) -lft $(MLX_FLAG)
 
+bonus: $(OBJS_BONUS)
+	make -C libft
+	make -C mlx
+	$(CC) $(CFLAGS) $(LD_FLAG) $(OBJS_BONUS) -o $(NAME)_bonus -lft $(MLX_FLAG)
 
 .c.o:
 	${CC} ${CFLAGS} ${HEAD} -c $< -o ${<:.c=.o}
@@ -50,11 +68,11 @@ $(NAME): $(OBJS)
 clean:
 	make clean -C libft
 	make clean -C mlx
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
 	make fclean -C libft 
-	rm -f $(NAME)
+	rm -f $(NAME) $(NAME)_bonus
 
 re: fclean all
 
