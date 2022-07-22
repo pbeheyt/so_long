@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:47:15 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/22 07:57:14 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/22 04:17:59 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ char	*get_next_line(int fd)
 	static char	*save;
 	char		*line;
 
+	if (fd == -1 && save)
+		return (free(save), NULL);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	save = read_and_add(save, fd);

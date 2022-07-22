@@ -6,13 +6,13 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/21 06:17:08 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/22 04:27:58 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-static void	display_map_error(int error)
+void	display_map_error(int error)
 {
 	if (error == 1)
 		ft_putstr_fd("Error\nInvalid map dimensions\n", 2);

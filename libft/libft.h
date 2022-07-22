@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:11:18 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/06/25 05:08:46 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/22 02:21:38 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,11 @@ void	ft_lstclear(t_list **lst);
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 
 // GET NEXT LINE
-#  define BUFFER_SIZE 5
+# define BUFFER_SIZE 5
 
 char	*clear_save(char *save);
 char	*extract_line(char *save);
 char	*read_and_add(char *save, int fd);
 char	*get_next_line(int fd);
 
-
 #endif
-

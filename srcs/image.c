@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/21 03:01:42 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/22 03:33:34 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,15 @@ void	init_sprites(t_image *image, t_data *data)
 	{
 		sprite = malloc(sizeof(t_sprite));
 		if (!sprite)
-		{
-			ft_putstr_fd("Error\nMemory allocation failed\n", 2);
 			clear_all(data);
-		}
 		sprite->path = tab[i];
 		sprite->c = tab[i][6];
 		sprite->behavior = tab[i][7];
 		sprite->next = NULL;
 		sprite->content = mlx_xpm_file_to_image(image->mlx, sprite->path,
 				&sprite->size.width, &sprite->size.height);
+		if (!sprite->content)
+			clear_all(data);
 		list_add_back(&image->list, sprite);
 	}
 }

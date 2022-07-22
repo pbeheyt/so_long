@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/21 06:17:05 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/22 04:27:55 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,14 @@ int	init_map(t_map *map, int ac, char **av)
 	return (1);
 }
 
-void	init_mlx(t_map *map, t_image *image, t_data *data)
+int	init_mlx(t_map *map, t_image *image, t_data *data)
 {
 	image->mlx = mlx_init();
+	if (!image->mlx)
+	{	
+		free_tab(map->tab);
+		return (0);
+	}
 	image->win = mlx_new_window(image->mlx, map->size.width * TILE_SIZE,
 			map->size.height * TILE_SIZE, "SO_LONG");
 	image->map_first_load = 1;
@@ -42,6 +47,7 @@ void	init_mlx(t_map *map, t_image *image, t_data *data)
 	image->exit_behavior = 'S';
 	image->player_behavior = 'D';
 	image->wall_behavior = '0';
+	return (1);
 }
 
 int	main(int ac, char **av)
@@ -50,9 +56,9 @@ int	main(int ac, char **av)
 	t_map	map;
 	t_image	image;
 
-	if (!init_map(&map, ac, av) || !check_map(&map))
+	if (!init_map(&map, ac, av) || !check_map(&map)
+		|| !init_mlx(&map, &image, &data))
 		return (0);
-	init_mlx(&map, &image, &data);
 	data.map = &map;
 	data.image = &image;
 	load_map(&data);

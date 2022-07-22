@@ -6,11 +6,38 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/21 06:17:11 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/22 04:28:02 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+static int	check_row(char *str, t_map *map)
+{
+	int		i;
+	char	*base;
+	int		content;
+
+	content = 0;
+	base = "01CEPO";
+	if (ft_strlen(str) < 4)
+		map->error = 1;
+	while (*str)
+	{
+		i = -1;
+		while (base[++i])
+		{
+			if (*str == base[i])
+				content = 1;
+		}
+		if (!content)
+			map->error = 3;
+	str++;
+	}
+	if (map->error)
+		return (display_map_error(map->error), 0);
+	return (1);
+}
 
 static char	*put_map_into_str(int fd, t_map *map)
 {
@@ -30,8 +57,8 @@ static char	*put_map_into_str(int fd, t_map *map)
 		row = get_next_line(fd);
 		if (!row)
 			break ;
-		if (ft_strlen(row) < 4)
-			map->error = 1;
+		if (!check_row(row, map))
+			return (get_next_line(-1), free(str), free(row), NULL);
 		tmp = ft_strjoin(str, row);
 		free (str);
 		str = tmp;

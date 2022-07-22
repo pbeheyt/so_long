@@ -6,13 +6,13 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/21 04:37:48 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/22 03:09:57 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	display_map_error(int error)
+void	display_map_error(int error)
 {
 	if (error == 1)
 		ft_putstr_fd("Error\nInvalid map dimensions\n", 2);

@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/21 06:17:02 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/22 04:27:52 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ static void	display_text(t_data *data, t_map *map, t_image *image)
 	player_pos = find_player_position(map);
 	move_count = ft_itoa(map->move_count);
 	if (!move_count)
-	{
-		ft_putstr_fd("Error\nMemory allocation failed\n", 2);
 		clear_all(data);
-	}
 	mlx_string_put(image->mlx, image->win,
 		TILE_SIZE / 4 + 5, TILE_SIZE / 4 - 10, 0x000000, "MOVE COUNT");
 	mlx_string_put(image->mlx, image->win,
