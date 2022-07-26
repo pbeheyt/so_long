@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/22 04:27:36 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/26 07:00:54 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	free_tab(char **tab)
 {	
 	int	i;
 
-	if (!tab)
+	if (!tab)./
 		return ;
 	i = -1;
 	while (tab[++i])

@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/22 03:34:17 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/26 06:53:28 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int	load_map(t_data *data)
 	if (map->collectible_count == 0)
 		image->exit_behavior = 'E';
 	display_map(map, image, 0);
-	image->map_first_load = 0;
 	display_text(data, map, image);
 	return (1);
 }

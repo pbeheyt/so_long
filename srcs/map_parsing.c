@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 01:56:10 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/07/22 04:24:31 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/07/26 06:44:38 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ static char	*put_map_into_str(int fd, t_map *map)
 
 	str = malloc(sizeof(char));
 	if (!str)
-	{
-		ft_putstr_fd("Error\nMemory allocation failed\n", 2);
-		return (NULL);
-	}
+		return (ft_putstr_fd("Error\nMemory allocation failed\n", 2), NULL);
 	str[0] = 0;
 	while (1)
 	{
@@ -76,19 +73,13 @@ char	**parse_map_into_table(t_map *map)
 
 	fd = open(map->name, O_RDONLY);
 	if (fd == -1)
-	{
-		ft_putstr_fd("Error\nInvalid map file\n", 2);
-		return (NULL);
-	}
+		return (ft_putstr_fd("Error\nInvalid map file\n", 2), NULL);
 	str = put_map_into_str(fd, map);
 	if (!str)
 		return (NULL);
 	tab = ft_split(str, '\n');
 	free(str);
 	if (!tab)
-	{
-		ft_putstr_fd("Error\nMemory allocation failed\n", 2);
-		return (NULL);
-	}
+		return (ft_putstr_fd("Error\nMemory allocation failed\n", 2), NULL);
 	return (tab);
 }
